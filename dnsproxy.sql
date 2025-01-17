@@ -11,7 +11,7 @@ DROP DATABASE IF EXISTS dnsproxy;
 DROP USER IF EXISTS dnsproxy@localhost;
 
 CREATE DATABASE dnsproxy;
-CREATE USER dnsproxy@localhost identified by 'password';
+CREATE USER dnsproxy@localhost identified by '123456';
 GRANT ALL ON dnsproxy.* to 'dnsproxy'@'localhost';
 
 USE dnsproxy;
@@ -26,7 +26,7 @@ CREATE TABLE user_account
 );
 
 ALTER TABLE user_account AUTO_INCREMENT = 100000001;
-INSERT INTO user_account (username , password , email, objid) VALUES('mahotz' , 'password' , 'mahotz@untangle.com', 1001);
+INSERT INTO user_account (username , password , email, objid) VALUES('mahotz' , '123456' , 'mahotz@untangle.com', 1001);
 
 CREATE TABLE user_network
 (
