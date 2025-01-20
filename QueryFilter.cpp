@@ -42,7 +42,13 @@ void QueryFilter::ThreadSaturation(int argTotal)
 
 if (argTotal < ThreadLimit) g_master->PushMessage(new MessageFrame(MSG_ADDQUERYTHREAD));
 }
-/*--------------------------------------------------------------------------*/
+/*--------------------------------------
+ThreadPool ThreadItem：ThreadWorker
+ThreadItem依然继承自ThreadLogic
+
+ThreadItem：ThreadWorker辉调用子类实现的QueryFilter::ThreadCallback
+QueryFilter继承自ThreadPool
+------------------------------------*/
 void QueryFilter::ThreadCallback(MessageFrame *argMessage)
 {
 ProxyMessage	*message = (ProxyMessage *)argMessage;
@@ -65,6 +71,8 @@ inet_ntop(AF_INET,&local->origin.sin_addr,textaddr,sizeof(textaddr));
 network = (NetworkEntry *)g_network->SearchObject(textaddr);
 
 	// for unknown networks we block everything
+	// 查询mysql是否有记录
+	// TODO，使用redis或者更快的本地缓存
 	if (network == NULL)
 	{
 	g_log->LogMessage(LOG_NOTICE,"Received query from unknown network %s\n",textaddr);

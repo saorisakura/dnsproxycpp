@@ -1,0 +1,80 @@
+是的，[`inet_ntop`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fworkspaces%2Fdnsproxycpp%2FClientNetwork.cpp%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A608%2C%22character%22%3A0%7D%7D%5D%2C%22d42f1c9f-0ec3-492a-ba2a-368bfc2d98a7%22%5D "Go to definition")函数的作用是将网络字节序的IP地址转换为字符串格式的可读IP地址。它支持IPv4和IPv6地址的转换。
+
+### 函数原型
+
+```cpp
+const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+```
+
+### 参数说明
+
+- **af**：地址族，指定要转换的地址类型。常用的值有：
+  - `AF_INET`：表示IPv4地址。
+  - `AF_INET6`：表示IPv6地址。
+- **src**：指向存储有网络字节序IP地址的缓冲区。
+  - 对于IPv4地址，通常是一个`struct in_addr`类型的指针。
+  - 对于IPv6地址，通常是一个`struct in6_addr`类型的指针。
+- **dst**：指向存储转换后字符串的缓冲区。
+- **size**：`dst`缓冲区的大小，以字节为单位。
+
+### 返回值
+
+- 成功时，返回指向`dst`的指针。
+- 失败时，返回`NULL`，并设置`errno`以指示错误原因。
+
+### 示例代码
+
+以下是一个使用[`inet_ntop`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fworkspaces%2Fdnsproxycpp%2FClientNetwork.cpp%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A608%2C%22character%22%3A0%7D%7D%5D%2C%22d42f1c9f-0ec3-492a-ba2a-368bfc2d98a7%22%5D "Go to definition")函数将IPv4和IPv6地址转换为字符串格式的示例：
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <arpa/inet.h>
+
+int main() {
+    // IPv4示例
+    struct in_addr ipv4addr;
+    char ipv4str[INET_ADDRSTRLEN];
+
+    // 将点分十进制字符串转换为网络字节序的IPv4地址
+    inet_pton(AF_INET, "192.168.1.1", &ipv4addr);
+
+    // 将网络字节序的IPv4地址转换为字符串格式
+    if (inet_ntop(AF_INET, &ipv4addr, ipv4str, INET_ADDRSTRLEN) != NULL) {
+        printf("IPv4 address: %s\n", ipv4str);
+    } else {
+        perror("inet_ntop");
+        exit(EXIT_FAILURE);
+    }
+
+    // IPv6示例
+    struct in6_addr ipv6addr;
+    char ipv6str[INET6_ADDRSTRLEN];
+
+    // 将十六进制字符串转换为网络字节序的IPv6地址
+    inet_pton(AF_INET6, "2001:0db8:85a3:0000:0000:8a2e:0370:7334", &ipv6addr);
+
+    // 将网络字节序的IPv6地址转换为字符串格式
+    if (inet_ntop(AF_INET6, &ipv6addr, ipv6str, INET6_ADDRSTRLEN) != NULL) {
+        printf("IPv6 address: %s\n", ipv6str);
+    } else {
+        perror("inet_ntop");
+        exit(EXIT_FAILURE);
+    }
+
+    return 0;
+}
+```
+
+### 解释
+
+1. **IPv4示例**：
+   - 使用`inet_pton`将点分十进制字符串转换为网络字节序的IPv4地址。
+   - 使用[`inet_ntop`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fworkspaces%2Fdnsproxycpp%2FClientNetwork.cpp%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A608%2C%22character%22%3A0%7D%7D%5D%2C%22d42f1c9f-0ec3-492a-ba2a-368bfc2d98a7%22%5D "Go to definition")将网络字节序的IPv4地址转换为字符串格式，并打印结果。
+
+2. **IPv6示例**：
+   - 使用`inet_pton`将十六进制字符串转换为网络字节序的IPv6地址。
+   - 使用[`inet_ntop`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fworkspaces%2Fdnsproxycpp%2FClientNetwork.cpp%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A608%2C%22character%22%3A0%7D%7D%5D%2C%22d42f1c9f-0ec3-492a-ba2a-368bfc2d98a7%22%5D "Go to definition")将网络字节序的IPv6地址转换为字符串格式，并打印结果。
+
+通过这种方式，[`inet_ntop`](command:_github.copilot.openSymbolFromReferences?%5B%22%22%2C%5B%7B%22uri%22%3A%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fworkspaces%2Fdnsproxycpp%2FClientNetwork.cpp%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22pos%22%3A%7B%22line%22%3A608%2C%22character%22%3A0%7D%7D%5D%2C%22d42f1c9f-0ec3-492a-ba2a-368bfc2d98a7%22%5D "Go to definition")函数可以将网络字节序的IP地址转换为可读的字符串格式，方便进行显示和处理。

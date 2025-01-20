@@ -367,7 +367,12 @@ tcpcount++;
 
 return(1);
 }
-/*--------------------------------------------------------------------------*/
+/*-----------------------------------
+向上游dns发送请求
+使用epoll监听上游dns是否返回
+如果返回有数据，处理路径如下
+ThreadWorker->ProcessUDPReply->g_rfilter->PushMessage->client.ForwardUDPReply
+---------------------------------------*/
 int ServerNetwork::ForwardUDPQuery(ProxyEntry *argEntry)
 {
 sockaddr_in		target;
